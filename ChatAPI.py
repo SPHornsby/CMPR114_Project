@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 import History as history
 from ChatException import ChatException
 import time
-
+import chatmodels as cm
 
 load_dotenv()
 COMPLETION_URL = 'https://api.openai.com/v1/chat/completions'
@@ -14,8 +14,8 @@ openai.organization = "org-aDyo6jEbWJVp1yvaaDJqlcwU"
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
 class Chat:
-    def __init__(self, model = 'text-davinci-003', with_history = False, file_name = 'default.txt'):
-        self.__model = model
+    def __init__(self, model = 1, with_history = False, file_name = 'default.txt'):
+        self.__model = cm[model]
         self.__history = None
         if with_history:
             self.__history = history.History(file_name)
