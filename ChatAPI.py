@@ -30,8 +30,8 @@ class Chat:
         )
         response = response['choices'][0]['text']
         if not self.__history == None:
-            self.__history.addToHistory(('question'+ question))
-            self.__history.addToHistory(('response'+ response))
+            self.__history.addToHistory(('question: '+ question.strip()))
+            self.__history.addToHistory(('response: '+ response.strip()))
 
         return response
     def quit(self):

@@ -21,5 +21,5 @@ class History:
     def saveHistory(self):
         fh = open(self.__fileName, 'a')
         for line in self.__chat:
-            fh.write(line)
+            fh.write(line + '\n')
         fh.close()
