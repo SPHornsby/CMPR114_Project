@@ -4,6 +4,7 @@ import os
 from dotenv import load_dotenv
 import History as history
 from ChatException import ChatException
+import time
 
 
 load_dotenv()
@@ -21,6 +22,7 @@ class Chat:
     
     def ask(self, question):
         try:
+            start = time.time()
             response = openai.Completion.create(
                 model=self.__model,
                 prompt=f"Q: {question}\nA:",
@@ -31,13 +33,15 @@ class Chat:
                 # presence_penalty=0.0,
                 stop=["\n"]
             )
+            end = time.time()
             response = response['choices'][0]['text']
             if not self.__history == None:
-                self.__history.addToHistory(('question: '+ question.strip()))
-                self.__history.addToHistory(('response: '+ response.strip()))
+                self.__history.addToHistory((str(start),': Question: '+ question.strip()))
+                self.__history.addToHistory((str(end),': Response: '+ response.strip(), ', response time: ' + str(round(end - start, 2))))
 
             return response
         except Exception as err:
+            print(err)
             raise ChatException()
     def quit(self):
         if not self.__history == None:

@@ -15,8 +15,17 @@ class History:
         try:
             fh = open(self.__fileName, 'a')
             for line in self.__chat:
+                line = convertTuple(line)
                 fh.write(line + '\n')
             fh.close()
-        except Exception as e:
-            print('There was an problem saving the file.')
+        except Exception as err:
+            print(err)
+            print('There was a problem saving the file.')
             exit(1)
+
+def convertTuple(tup):
+    # initialize an empty string
+    str = ''
+    for item in tup:
+        str = str + item
+    return str

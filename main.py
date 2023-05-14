@@ -28,7 +28,7 @@ def main():
     except Exception as err:
         print(f"Unexpected {err=}, {type(err)=}")
         raise
-main()
+
 
 
 if __name__ == '__main__':
