@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 import History as history
 from ChatException import ChatException
 import time
-import chatmodels as cm
+from chatmodels import chats as cm
 
 load_dotenv()
 COMPLETION_URL = 'https://api.openai.com/v1/chat/completions'
