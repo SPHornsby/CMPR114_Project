@@ -2,6 +2,7 @@ import ChatAPI as chat
 from ChatException import ChatException
 from chatmodels import inputs as iomodels
 
+
 # import History as history
 def main():
     try:
@@ -15,7 +16,10 @@ def main():
         for m, n in iomodels.items():
             print(f'{n}. {m}')
         # allow the user to pick a model (or not)
-        model = int(input('Choose a completion model (or leave blank for default model '))
+        model_answer = input('Choose a completion model ')
+        if type(model_answer) is not int:
+            model = 1
+        model = int(model)
         # quick and dirty method to make sure the model is in the choices
         if model < 1 or model > 5:
             model = 1
@@ -40,7 +44,7 @@ def main():
                 loop = False
                 c.quit()
                 break
-            print(c.ask(question))
+            print(c.chat(question))
     except ValueError as err:
         print('The input given was not accepted.', err)
     except ChatException as err:

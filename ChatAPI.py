@@ -9,7 +9,7 @@ from chatmodels import chats as cm
 
 load_dotenv()
 COMPLETION_URL = 'https://api.openai.com/v1/chat/completions'
-MODEL='text-davinci-003'
+# MODEL='text-davinci-003'
 openai.organization = "org-aDyo6jEbWJVp1yvaaDJqlcwU"
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
@@ -19,6 +19,26 @@ class Chat:
         self.__history = None
         if with_history:
             self.__history = history.History(file_name)
+
+    def chat(self, question):
+        start = time.time()
+        response =openai.ChatCompletion.create(
+            model=self.__model,
+            messages=[
+                {'role':'user', 'content':question}
+            ]
+        )
+        end = time.time()
+
+        usage = response['usage']
+        total_tokens = usage['total_tokens']
+        print(f'Total tokens used for this question: {total_tokens}')
+        response = response['choices'][0]['message']['content']
+        if not self.__history == None:
+            self.__history.addToHistory((str(start),': Question: '+ question.strip()))
+            self.__history.addToHistory((str(end),': Response: '+ response.strip(), ', response time: ' + str(round(end - start, 2))))
+            self.__history.addToHistory('total tokens used: '+str(total_tokens))
+        return response
     
     def ask(self, question):
         try:
