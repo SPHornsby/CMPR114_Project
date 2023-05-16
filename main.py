@@ -1,7 +1,7 @@
 import ChatAPI as chat
 from ChatException import ChatException
 from chatmodels import inputs as iomodels
-
+# import time
 
 # import History as history
 def main():
@@ -21,7 +21,7 @@ def main():
             model = 1
         model = int(model)
         # quick and dirty method to make sure the model is in the choices
-        if model < 1 or model > 5:
+        if model not in iomodels.values():
             model = 1
         
         # ask if user wants to save the chat as a file
@@ -38,12 +38,23 @@ def main():
             c = chat.Chat(model = model)
 
         # start asking questions and getting answers
+        # lastThreeTimes = []
         while loop:
+            
             question = input('What question would you like to ask? (Leave blank to quit)')
             if question == '':
                 loop = False
                 c.quit()
                 break
+            # qtime = time.time()
+            # if len(lastThreeTimes)> 3:
+            #     lastThreeTimes.pop(0)
+            # lastThreeTimes.append(qtime)
+            # if len(lastThreeTimes) >= 3:
+            #     timeGap = lastThreeTimes[3] - lastThreeTimes[0]
+            #     print(timeGap)
+            #     if timeGap < 30:
+            #         time.sleep(30 - timeGap)
             print(c.chat(question))
     except ValueError as err:
         print('The input given was not accepted.', err)

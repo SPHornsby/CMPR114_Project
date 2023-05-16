@@ -26,7 +26,9 @@ class History:
             print(err)
             print('There was a problem saving the file.')
             exit(1)
-
+    def getChat(self):
+        return self.__chat
+    
 def convertTuple(tup:tuple)->str:
     '''Converts a tuple into a concatenated string'''
     # initialize an empty string

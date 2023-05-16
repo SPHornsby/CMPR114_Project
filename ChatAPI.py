@@ -1,5 +1,4 @@
 import openai
-import json
 import os
 from dotenv import load_dotenv
 import History as history
@@ -9,8 +8,8 @@ from chatmodels import chats as cm
 
 load_dotenv()
 COMPLETION_URL = 'https://api.openai.com/v1/chat/completions'
-# MODEL='text-davinci-003'
-openai.organization =  os.getenv("OPENAI_API_ORG")#"org-aDyo6jEbWJVp1yvaaDJqlcwU"
+
+openai.organization =  os.getenv("OPENAI_API_ORG")
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
 class Chat:
